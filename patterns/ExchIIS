@@ -1,0 +1,2 @@
+EXCHIIS %{TIMESTAMP_ISO8601_EXTRACTED:timestamp} %{IPORHOST:hostip} %{WORD:method} %{NOTSPACE:URI} %{NOTSPACE:query} %{NUMBER:port:INT} %{NOTSPACE:usernameString} %{IPORHOST:clientip} %{NOTSPACE:useragent} %{NOTSPACE:referrer} %{NUMBER:response:INT} %{NUMBER:subresponse:INT} %{NUMBER:scstatus:INT} %{NUMBER:timetaken:INT}
+TIMESTAMP_ISO8601_EXTRACTED %{YEAR:ts_year:INT}-%{MONTHNUM:ts_month:INT}-%{MONTHDAY:ts_day:INT}[T ]%{HOUR:ts_hour:INT}:?%{MINUTE:ts_min:INT}(?::?%{SECOND:ts_second:INT})?%{ISO8601_TIMEZONE:ts_timezone}?
