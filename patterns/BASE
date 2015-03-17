@@ -1,0 +1,1 @@
+BASEMESSAGEWTIME ^%{BASE10NUM:receivedTime} %{IP:logSourceIP} %{HOST:logSource} %{GREEDYDATA:syslog_message}
