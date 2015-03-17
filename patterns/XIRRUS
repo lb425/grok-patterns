@@ -1,0 +1,3 @@
+XIRRUSIDSEVENT ^IDS event: %{GREEDYDATA:eventType} detected, %{GREEDYDATA:eventDescription}
+XIRRUSSTATION ^Station %{MAC:clientMAC} \(%{GREEDYDATA:clientDetails}\), IAP %{WORD:iap}:
+XIRRUS <%{POSINT}>%{SYSLOGTIMESTAMP:timestamp} ?%{SYSLOGHOST} : %{LOGLEVEL} %{SPACE}: %{GREEDYDATA:description}
