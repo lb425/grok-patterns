@@ -1,0 +1,2 @@
+#SLB - - http://www.brocade.com/downloads/documents/html_product_manuals/VADX_03100_ADMIN/wwhelp/wwhimpl/js/html/wwhelp.htm
+BROCADESLB ^<%{POSINT}>%{HOSTNAME}, %{GREEDYDATA:description}
