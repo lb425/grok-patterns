@@ -1,0 +1,6 @@
+CISCOcallManager ^<%{POSINT:syslog_pri}>%{POSINT:sequence_number}: (?:%{WORD:unknown1}|): (?:%{PROCESSNAME:process}|): (?:%{WORD:unknown2}|): %{CISCOTIMESTAMP:timestamp} %{WORD:tz} :[\s]+%%{NEWCISCOTAG:ciscotag}:[\s]+%{GREEDYDATA:description}
+CISCOcallManager1 ^<%{POSINT:syslog_pri}>%{POSINT:sequence_number}: (?:%{WORD:unknown1}|): (?:%{WORD:process}|): %{WORD:unknown2}: %{HOSTNAME}: %{CISCOTIMESTAMP:timestamp} %{WORD:tz} %{GREEDYDATA:temp1}
+CISCOcallManager2 %%{NEWCISCOTAG}: %{GREEDYDATA:description}
+
+
+PROCESSNAME [a-zA-Z0-9\[\]]+
