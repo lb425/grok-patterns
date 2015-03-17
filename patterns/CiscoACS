@@ -1,0 +1,4 @@
+#http://www.cisco.com/en/US/docs/net_mgmt/cisco_secure_access_control_server_for_windows/4.1/configuration/guide/syslog.html
+CISCOACSTAG CisACS_01_PassedAuth|CisACS_02_FailedAuth|CisACS_03_RADIUSAcc|CisACS_04_TACACSAcc|CisACS_05_TACACSAdmin|CisACS_06_VoIPAcc|CisACS_11_BackRestore|CisACS_12_Replication|CisACS_13_AdminAudit|CisACS_14_PassChanges|CisACS_15_ServiceMon|CisACS_16_RDBMSSync|CisACS_17_ApplAdmin
+CISCOACS ^<%{POSINT:syslog_pri}>%{SYSLOGTIMESTAMP:timestamp} %{IP} %{CISCOACSTAG:Cisco_ACS_Tag} %{GREEDYDATA:description}
+CISCOACSINNER ^%{WORD:msg_id} %{POSINT:total_seg} %{INT:seg_num} %{GREEDYDATA:Attribute_Value_Pairs}
