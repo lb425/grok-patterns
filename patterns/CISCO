@@ -1,0 +1,52 @@
+#HERE BE PATTERNS
+
+
+
+
+CISCO_SEQ_TAGGED_SYSLOG ^<%{POSINT:syslog_pri}>%{POSINT:sequence_number}: (\*|\.)?%{CISCOTIMESTAMP:timestamp}( %{SYSLOGHOST:sysloghost})?: %%{NEWCISCOTAG:ciscotag}:
+NEWCISCOTAG (?<syslog_facility>[a-zA-Z0-9_]+)(-(?<syslog_sub_facility>[a-zA-Z0-9_]+))?-%{INT}-(?<cisco_mnemonic>[a-zA-Z0-9_]+)
+NEWCISCO_TAGGED_SYSLOG ^<%{POSINT:syslog_pri}>%{CISCOTIMESTAMP:timestamp}( %{SYSLOGHOST})?: %%{NEWCISCOTAG:ciscotag}:
+NEWCISCO_TAGGED_SYSLOG2 ^<%{POSINT:syslog_pri}>%{CISCOTIMESTAMP:timestamp} %{SYSLOGHOST:originatingHost} %%{NEWCISCOTAG:ciscotag}:
+TRUNCATEDCISCO_TAGGED_SYSLOG ^<%{POSINT:syslog_pri}>%%{NEWCISCOTAG:ciscotag}:
+
+NEWCISCOTAG2 (?<syslog_facility>[a-zA-Z0-9_]+)(-(?<syslog_sub_facility>[a-zA-Z0-9_]+))?-%{INT}-(?<cisco_mnemonic>[a-zA-Z0-9_]+)
+
+
+CISCOLWAPPCONTROLLER ^<%{POSINT}>%{HOSTNAME}: \*(?<task>[a-zA-Z0-9_\s]+): %{SYSLOGTIMESTAMP:timestamp}: %%{NEWCISCOTAG:ciscotag}: %{GREEDYDATA:description}
+
+CISCOVPN ^<%{POSINT}>%{POSINT:sequence_number} %{DATESTAMP} %{GREEDYDATA:description}
+
+#Router stuff
+CISCOINTERFACE [a-zA-Z0-9]+(/%{INT}+)?/%{INT}
+CISCOPORTSTATE up|down|UP|DOWN|blocking|unblocking
+LINK3UPDOWN_LINEPROTO5UPDOWN (Line protocol on Interface)?(Link)? %{CISCOINTERFACE:interface}, changed state to %{CISCOPORTSTATE:state}
+STACKMGR4STACKLINKCHANGE Stack Port %{INT:stackPort} Switch %{INT:switch} has changed to state %{CISCOPORTSTATE:state}
+
+#not used
+SPANTREE2LOOPGUARD ^Loop guard %{CISCOPORTSTATE:state} port %{CISCOINTERFACE:interface} on VLAN%{INT:VLANid}
+
+#not used
+SNMP3AUTHFAIL ^Authentication failure for SNMP req from host %{IP:ipAddress}
+
+
+ILPOWEREXTRACTINF Interface %{CISCOINTERFACE:interface}:
+
+#not working!!!
+SWMATM4MACFLAPNOTIF Host %{MAC:hostMAC} in vlan %{INT:VLAN} is flapping between port %{CISCOINTERFACE:interface} and port %{CISCOINTERFACE:interface}
+
+#REVISIT!!
+CDP4NATIVEVLANMISMATCH Native VLAN mismatch discovered on %{CISCOINTERFACE:interface} \(%{INT:vlan}\), with %{HOST:remoteHost} %{CISCOINTERFACE:remoteInterface} \(%{INT:vlan}\)
+
+#REVISIT!!
+CDP4DUPLEXMISMATCH duplex mismatch discovered on %{CISCOINTERFACE:interface} \((?<localDuplex>[a-zA-Z0-9_\s]+)\). with %{HOST:remoteHost} %{CISCOINTERFACE:remoteInterface} \((?<remoteDuplexDuplex>[a-zA-Z0-9_\s]+)\)
+
+
+CISCO_SEQ_TAGGED_SYSLOG_SHORT ^<%{POSINT:syslog_pri}>%{POSINT:sequence_number}: %{GREEDYDATA:description}
+
+
+#ASA
+ASA_2_106017 ^Deny IP due to Land Attack from %{IP:src_ip} to %{IP:dst_ip}
+
+
+##TEST
+asdfsdasdfaciscocallmanager ^<%{POSINT:syslog_pri}>%{POSINT:sequence_number}: (?:%{WORD:unknown1}|): (?:%{WORD:process}|): %{WORD:unknown2}: %{HOSTNAME}: %{CISCOTIMESTAMP:timestamp} %{WORD:tz} : %%{NEWCISCOTAG}: %{GREEDYDATA:description}
